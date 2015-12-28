@@ -1,2 +1,2 @@
 # Polymer-Kit
-My personal polymer kit repo
+My personal polymer component repo
