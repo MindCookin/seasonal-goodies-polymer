@@ -1,0 +1,99 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="calendar-list">
+
+    <style>
+    table {
+      width: 100%;
+      table-layout: fixed;
+    }
+    th {
+      font-size: .8rem;
+    }
+    .hide {
+      visibility: hidden;
+    }
+    .container {
+      background-color: #ccc;
+      padding: 5px;
+      margin: 0;
+    }
+    .container > div {
+      padding: 15px;
+      margin: 5px;
+      background-color: white;
+      min-height: 20px;
+    }
+    .container {
+      @apply(--layout-horizontal);
+    }
+    </style>
+
+    <template>
+      <firebase-collection
+        location="https://seasonal-goodies.firebaseio.com/vegetables"
+        data="{{vegetables}}"></firebase-collection>
+          <table>
+            <col width="16%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <col width="7%" />
+            <tr class="titles">
+              <th></th>
+              <template is="dom-repeat" items="[[months]]" as="month">
+                <th class="title">[[month]]</th>
+              </template>
+            </tr>
+            <template is="dom-repeat" items="[[vegetables]]" as="vegetable" filter="parse">
+              <tr>
+                <td style$="color: [[vegetable.color]]">[[vegetable.name]]</td>
+                <template is="dom-repeat" items="[[vegetable.months]]" as="month">
+                  <td class$="[[month]]" style$="background-color: [[vegetable.color]]"></td>
+                </template>
+              </tr>
+            </template>
+          </table>
+    </template>
+  <script>
+    (function() {
+      'use strict';
+
+      var colors = ['red', 'green', 'blue', 'chartreuse', 'orange', 'grey'];
+
+      Polymer({
+        is: 'calendar-list',
+        properties: {
+          items: {
+            type: Array,
+            notify: true,
+          }
+        },
+        parse: function(data) {
+          data.months = [0,0,0,0,0,0,0,0,0,0,0,0,0].map(function(v,i) {
+              if (data.season.indexOf(i) >= 0) {
+                  return 'show';
+              } else {
+                  return 'hide';
+              }
+          });
+
+          data.color = colors[data.__firebaseKey__ % colors.length];
+
+          return data
+        },
+        ready: function() {
+          this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        }
+      });
+    })();
+  </script>
+</dom-module>

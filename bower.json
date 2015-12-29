@@ -9,7 +9,9 @@
     "platinum-elements": "PolymerElements/platinum-elements#^1.1.0",
     "polymer": "Polymer/polymer#^1.2.0",
     "paper-menu": "PolymerElements/paper-menu#4fecb43601",
-    "firebase-element": "GoogleWebComponents/firebase-element#~1.0.9"
+    "firebase-element": "GoogleWebComponents/firebase-element#~1.0.9",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.2.2",
+    "google-chart": "GoogleWebComponents/google-chart#~1.0.4"
   },
   "devDependencies": {
     "web-component-tester": "*"
