@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="vegetable-list">
+    <template>
+      <firebase-collection
+        location="https://seasonal-goodies.firebaseio.com/vegetables"
+        data="{{vegetables}}"></firebase-collection>
+          <ul>
+            <template is="dom-repeat" items="[[vegetables]]" as="vegetable">
+                <li>[[vegetable.name]]</li>
+          </template>
+        </ul>
+    </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'vegetable-list',
+        properties: {
+          items: {
+            type: Array,
+            notify: true,
+          }
+        },
+        ready: function() {
+          console.log(this.properties.items);
+        }
+      });
+    })();
+  </script>
+</dom-module>
