@@ -1,13 +1,25 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="vegetable-list">
+
+    <style is="custom-style">
+      paper-card {
+        width: 100%;
+        margin-bottom: 16px;
+      }
+    </style>
+
     <template>
       <firebase-collection
         location="https://seasonal-goodies.firebaseio.com/vegetables"
         data="{{vegetables}}"></firebase-collection>
           <ul>
             <template is="dom-repeat" items="[[vegetables]]" as="vegetable">
-                <li>[[vegetable.name]]</li>
+            <paper-card heading="[[vegetable.name]]">
+              <div class="card-actions">
+                <paper-button>Recipes and descripition</paper-button>
+              </div>
+            </paper-card>
           </template>
         </ul>
     </template>

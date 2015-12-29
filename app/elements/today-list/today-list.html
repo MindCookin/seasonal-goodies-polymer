@@ -1,22 +1,63 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="today-list">
+
+    <style is="custom-style">
+
+      paper-card {
+        width: 45%;
+        margin-bottom: 16px;
+      }
+    </style>
+
     <template>
       <firebase-collection
         location="https://seasonal-goodies.firebaseio.com/vegetables"
         data="{{vegetables}}"></firebase-collection>
-          <ul>
             <template is="dom-repeat" items="[[vegetables]]" as="vegetable"
                       filter="filterToday">
-                <li>[[vegetable.name]]</li>
+                      <paper-card heading="[[vegetable.name]]">
+                        <div class="card-content">[[vegetable.availabilty]]</div>
+                        <div class="card-actions">
+                          <paper-button>Recipes and descripition</paper-button>
+                        </div>
+                      </paper-card>
           </template>
-        </ul>
     </template>
   <script>
     (function() {
       'use strict';
 
-      var month = new Date().getMonth();
+      var month = new Date().getMonth(),
+          months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+      function sortNumber(a,b) {
+          return a - b;
+      }
+
+      function getAvailabilty(season) {
+        var season = season.split(',')
+                      .map(function (it) { return parseInt(it, 10);})
+                      .sort(sortNumber);
+        var min, max;
+
+        if (season.length === 12) {
+          return 'Available whole year';
+        }
+
+        for (var i = season.length-1; i >= 0; i--) {
+          if (!min) min = season[i];
+          if (season[i] < min - 1) {
+            max = season[i];
+            break;
+          }
+          if (season[i] < min) min = season[i];
+        }
+
+        if (!max) max = season[season.length-1];
+
+        return 'Available from ' + months[min] + ' to ' + months[max];
+      }
 
       Polymer({
         is: 'today-list',
@@ -27,7 +68,11 @@
           }
         },
         filterToday: function(vegetable) {
-          return vegetable.season.indexOf(month) >= 0;
+          if (vegetable.season.indexOf(month) < 0) return false;
+
+          vegetable.availabilty = getAvailabilty(vegetable.season);
+
+          return vegetable;
         }
       });
     })();

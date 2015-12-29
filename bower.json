@@ -11,7 +11,9 @@
     "paper-menu": "PolymerElements/paper-menu#4fecb43601",
     "firebase-element": "GoogleWebComponents/firebase-element#~1.0.9",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.2.2",
-    "google-chart": "GoogleWebComponents/google-chart#~1.0.4"
+    "google-chart": "GoogleWebComponents/google-chart#~1.0.4",
+    "paper-card": "PolymerElements/paper-card#~1.0.8",
+    "paper-button": "PolymerElements/paper-button#~1.0.11"
   },
   "devDependencies": {
     "web-component-tester": "*"
