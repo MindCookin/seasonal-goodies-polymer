@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="today-list">
+    <template>
+      <firebase-collection
+        location="https://seasonal-goodies.firebaseio.com/vegetables"
+        data="{{vegetables}}"></firebase-collection>
+          <ul>
+            <template is="dom-repeat" items="[[vegetables]]" as="vegetable"
+                      filter="filterToday">
+                <li>[[vegetable.name]]</li>
+          </template>
+        </ul>
+    </template>
+  <script>
+    (function() {
+      'use strict';
+
+      var month = new Date().getMonth();
+
+      Polymer({
+        is: 'today-list',
+        properties: {
+          items: {
+            type: Array,
+            notify: true,
+          }
+        },
+        filterToday: function(vegetable) {
+          return vegetable.season.indexOf(month) >= 0;
+        },
+        ready: function() {
+          console.log(this.properties.items);
+        }
+      });
+    })();
+  </script>
+</dom-module>
