@@ -11,7 +11,7 @@ It uses the same processes as [polymer-starter-kit](https://www.polymer-project.
 
 ###### Setup
 `npm install -g gulp bower`
-`npm install && bower install`
+`npm i && bower i`
 
 ###### Build the application
 `gulp`
