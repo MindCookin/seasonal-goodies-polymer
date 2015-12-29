@@ -9,6 +9,10 @@ In this case is built with polymer and the [polymer-starter-kit](https://github.
 ### Dev
 It uses the same processes as [polymer-starter-kit](https://www.polymer-project.org/1.0/docs/start/psk/set-up.html#build-and-serve) so there are only two available commands:
 
+###### Setup
+`npm install -g gulp bower`
+`npm install && bower install`
+
 ###### Build the application
 `gulp`
 
