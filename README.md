@@ -17,3 +17,6 @@ It uses the same processes as [polymer-starter-kit](https://www.polymer-project.
 
 ### Roadmap
 * Add Unit Testing
+* Show vegetable descriptions and recipes
+  * connect to external db services (Food API)
+  * show vegetable as a single page
