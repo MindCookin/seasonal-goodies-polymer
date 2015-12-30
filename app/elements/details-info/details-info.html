@@ -3,12 +3,12 @@
 <dom-module id="details-info">
 
     <template>
-      <h2>Hola {{vegetableName}}</h2>
       <iron-ajax auto
           url="https://edamam-recipe-search-and-diet-v1.p.mashape.com/search"
           params$={{ajaxParams}}
           headers='{"X-Mashape-Authorization": "fGwC4tgvhAmshPHOuk0uT7TFQ9gwp1zUwT3jsnTyllPfWM026V"}'
           handle-as="json"
+          on-request="onRequest"
           last-response="{{ajaxResponse}}"></iron-ajax>
 
         <template is="dom-repeat" items="[[ajaxResponse.hits]]">
@@ -35,16 +35,16 @@
           },
           ajaxParams: {
             type: String,
-            computed: 'prueba(vegetableName)'
+            computed: 'getURL(vegetableName)'
           }
         },
+        onRequest: function() {
+          this.ajaxResponse = [];
+        },
 
-        prueba: function(name) {
+        getURL: function(name) {
           return '{"_app_id": "c75e0503", "_app_key": "30850701dd6f787d6b5148e87e779449", "q": "' + name +'"}';
         }
-
-        //'{"_app_id": "c75e0503", "_app_key": "30850701dd6f787d6b5148e87e779449", "q": "apple"}'
-
       });
     })();
   </script>
