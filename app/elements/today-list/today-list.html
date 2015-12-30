@@ -19,7 +19,7 @@
                       <paper-card heading="[[vegetable.name]]">
                         <div class="card-content">[[vegetable.availabilty]]</div>
                         <div class="card-actions">
-                          <paper-button>Recipes and descripition</paper-button>
+                          <paper-button on-click="onClick" data-name$="[[vegetable.name]]">Recipes and descripition</paper-button>
                         </div>
                       </paper-card>
           </template>
@@ -79,6 +79,10 @@
             type: Array,
             notify: true,
           }
+        },
+        onClick: function(me) {
+          var url = app.baseUrl + 'details/' + me.currentTarget.dataset.name;
+          page.redirect(url);
         },
         filterToday: function(vegetable) {
           if (vegetable.season.indexOf(month) < 0) {
