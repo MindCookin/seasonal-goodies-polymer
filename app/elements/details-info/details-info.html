@@ -1,0 +1,51 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="details-info">
+
+    <template>
+      <h2>Hola {{vegetableName}}</h2>
+      <iron-ajax auto
+          url="https://edamam-recipe-search-and-diet-v1.p.mashape.com/search"
+          params$={{ajaxParams}}
+          headers='{"X-Mashape-Authorization": "fGwC4tgvhAmshPHOuk0uT7TFQ9gwp1zUwT3jsnTyllPfWM026V"}'
+          handle-as="json"
+          last-response="{{ajaxResponse}}"></iron-ajax>
+
+        <template is="dom-repeat" items="[[ajaxResponse.hits]]">
+          <div class="horizontal-section">
+            <h2><a href="[[item.recipe.url]]" target="_blank">[[item.recipe.label]]</a></h2>
+            <iron-image src="[[item.recipe.image]]" width="256" height="256" sizing="cover" preload fade></iron-image>
+            <p>Source: [[item.recipe.source]]</p>
+          </div>
+        </template>
+
+    </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'details-info',
+        properties: {
+          vegetableName: String,
+          ajaxResponse: {
+            type: Array,
+            notify: true,
+          },
+          ajaxParams: {
+            type: String,
+            computed: 'prueba(vegetableName)'
+          }
+        },
+
+        prueba: function(name) {
+          return '{"_app_id": "c75e0503", "_app_key": "30850701dd6f787d6b5148e87e779449", "q": "' + name +'"}';
+        }
+
+        //'{"_app_id": "c75e0503", "_app_key": "30850701dd6f787d6b5148e87e779449", "q": "apple"}'
+
+      });
+    })();
+  </script>
+</dom-module>
