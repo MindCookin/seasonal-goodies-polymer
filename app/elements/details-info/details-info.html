@@ -2,6 +2,21 @@
 
 <dom-module id="details-info">
 
+    <style is="custom-style">
+      paper-card {
+        margin: 16px;
+        padding: 10px;
+        width: 29%;
+      }
+      paper-card > * {
+        color: black;
+        text-decoration: none;
+      }
+      .no-bold {
+        font-weight: normal;
+      }
+    </style>
+
     <template>
       <iron-ajax auto
           url="https://edamam-recipe-search-and-diet-v1.p.mashape.com/search"
@@ -12,11 +27,12 @@
           last-response="{{ajaxResponse}}"></iron-ajax>
 
         <template is="dom-repeat" items="[[ajaxResponse.hits]]">
-          <div class="horizontal-section">
-            <h2><a href="[[item.recipe.url]]" target="_blank">[[item.recipe.label]]</a></h2>
-            <iron-image src="[[item.recipe.image]]" width="256" height="256" sizing="cover" preload fade></iron-image>
-            <p>Source: [[item.recipe.source]]</p>
-          </div>
+          <paper-card>
+            <a href="[[item.recipe.url]]" target="_blank">
+              <h2>[[item.recipe.label]]</h2>
+              <iron-image src="[[item.recipe.image]]" width="256" height="256" sizing="cover" preload fade></iron-image>
+              </a>
+          </paper-card>
         </template>
 
     </template>
