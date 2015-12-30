@@ -78,20 +78,21 @@
           }
         },
         parse: function(data) {
-          data.months = [0,0,0,0,0,0,0,0,0,0,0,0,0].map(function(v,i) {
-              if (data.season.indexOf(i) >= 0) {
-                  return 'show';
-              } else {
-                  return 'hide';
-              }
+          data.months = [0,0,0,0,0,0,0,0,0,0,0,0,0].map(function(v, i) {
+            if (data.season.indexOf(i) >= 0) {
+              return 'show';
+            } else {
+              return 'hide';
+            }
           });
 
           data.color = colors[data.__firebaseKey__ % colors.length];
 
-          return data
+          return data;
         },
         ready: function() {
-          this.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+          this.months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                          'July', 'August', 'September', 'October', 'November', 'December'];
         }
       });
     })();

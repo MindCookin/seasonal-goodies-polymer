@@ -28,33 +28,46 @@
     (function() {
       'use strict';
 
-      var month = new Date().getMonth(),
-          months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      var month = new Date().getMonth();
+      var months = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
 
-      function sortNumber(a,b) {
-          return a - b;
+      function sortNumber(a, b) {
+        return a - b;
       }
 
       function getAvailabilty(season) {
-        var season = season.split(',')
-                      .map(function (it) { return parseInt(it, 10);})
+        var _season = season.split(',')
+                      .map(function(it) {
+                        return parseInt(it, 10);
+                      })
                       .sort(sortNumber);
-        var min, max;
+        var i;
+        var min;
+        var max;
 
-        if (season.length === 12) {
+        if (_season.length === 12) {
           return 'Available whole year';
         }
 
-        for (var i = season.length-1; i >= 0; i--) {
-          if (!min) min = season[i];
-          if (season[i] < min - 1) {
-            max = season[i];
+        for (i = _season.length - 1; i >= 0; i--) {
+          if (!min) {
+            min = _season[i];
+          }
+
+          if (_season[i] < min - 1) {
+            max = _season[i];
             break;
           }
-          if (season[i] < min) min = season[i];
+
+          if (_season[i] < min) {
+            min = _season[i];
+          }
         }
 
-        if (!max) max = season[season.length-1];
+        if (!max) {
+          max = _season[_season.length - 1];
+        }
 
         return 'Available from ' + months[min] + ' to ' + months[max];
       }
@@ -68,7 +81,9 @@
           }
         },
         filterToday: function(vegetable) {
-          if (vegetable.season.indexOf(month) < 0) return false;
+          if (vegetable.season.indexOf(month) < 0) {
+            return false;
+          }
 
           vegetable.availabilty = getAvailabilty(vegetable.season);
 
