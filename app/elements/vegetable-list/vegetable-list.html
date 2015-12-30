@@ -17,7 +17,7 @@
             <template is="dom-repeat" items="[[vegetables]]" as="vegetable">
             <paper-card heading="[[vegetable.name]]">
               <div class="card-actions">
-                <paper-button>Recipes and descripition</paper-button>
+                <paper-button on-click="onClick" data-name$="[[vegetable.name]]">Recipes</paper-button>
               </div>
             </paper-card>
           </template>
@@ -34,6 +34,10 @@
             type: Array,
             notify: true,
           }
+        },
+        onClick: function(me) {
+          var url = app.baseUrl + 'details/' + me.currentTarget.dataset.name;
+          page.redirect(url);
         }
       });
     })();
